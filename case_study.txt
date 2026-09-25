@@ -1,0 +1,319 @@
+﻿1  
+Full-Stack Developer Technical Case Study 
+Mini Operations  ERP 
+ 
+Objective 
+Build a small but production-oriented full-stack Operations ERP. 
+ 
+This is not a UI-only assignment.  We want to evaluate your ability to build and connect: 
+ 
+ΓÇó Frontend 
+ΓÇó Backend APIs 
+ΓÇó Relational  database 
+ΓÇó Authentication 
+ΓÇó Business logic 
+ΓÇó Transactions 
+ΓÇó Validation 
+ΓÇó Testing 
+ΓÇó Portable architecture 
+ 
+ 
+ 
+Business Scenario 
+A company operates from multiple locations and manages inventory, work orders, internal stock 
+transfers, and customer orders.  
+ 
+You need to build a working system covering the following flow: 
+ 
+Inventory ΓåÆ Work Order ΓåÆ Stock Check ΓåÆ Internal Transfer / Shortage ΓåÆ Customer Reservation 
+ 
+ 
+Mandatory Modules 
+1. Authentication  & Roles 
+Create login with minimum roles: 
+ 
+ΓÇó Admin 
+ΓÇó Operations  User 
+ΓÇó Sales User 
+ 
+Backend authorization is mandatory. 
+2  
+Example: 
+ 
+ΓÇó Admin can create Work Orders. 
+ΓÇó Operations User can manage inventory and transfers. 
+ΓÇó Sales User can create orders and reserve  stock. 
+ 
+ 
+ 
+2. Inventory Management 
+Inventory should include: 
+ 
+ΓÇó Item 
+ΓÇó Category 
+ΓÇó Location 
+ΓÇó Batch 
+ΓÇó Physical Quantity 
+ΓÇó Reserved Quantity 
+ΓÇó Available Quantity 
+ 
+Available Quantity should be calculated  correctly. 
+Example: 
+ 
+ 
+ 
+ 
+ 
+ 
+System must prevent: 
+ 
+ΓÇó Negative inventory 
+ΓÇó Invalid quantity 
+ΓÇó Duplicate inventory transaction 
+ΓÇó Reservation  beyond available  quantity 
+ 
+ 
+ 
+3. Work Order + Material Stock Check 
+Admin can create a Work Order. 
+Minimum fields:  
+ΓÇó Work Order ID 
+ΓÇó Location 
+ΓÇó Item 
+ΓÇó Required Quantity 
+ΓÇó Assigned User 
+ΓÇó Status 
+ 
+ 
+ 
+ 
+3  
+Statuses: 
+ 
+ΓÇó Assigned 
+ΓÇó In Progress 
+ΓÇó Completed 
+ 
+A Work Order may require material. 
+Example: 
+ 
+ 
+ 
+ 
+ 
+ 
+The system should calculate the shortage automatically. 
+ 
+ 
+ 
+4. Internal Stock Transfer 
+If the required material is available at another location, allow an Internal Transfer. 
+Fields: 
+ΓÇó Transfer ID 
+ΓÇó Source Location 
+ΓÇó Destination  Location 
+ΓÇó Item 
+ΓÇó Quantity 
+ΓÇó Status 
+Statuses: 
+ΓÇó Requested 
+ΓÇó Dispatched 
+ΓÇó Received 
+Important rule: 
+On Dispatch 
+Source inventory reduces. 
+ 
+Before Receipt 
+Destination inventory must NOT increase. 
+ 
+On Receipt 
+Destination  inventory  increases. 
+ 
+ 
+4  
+The system must prevent the same transfer  from being received  twice. 
+ 
+ 
+ 
+5. Customer  Order & Stock Reservation 
+Sales User should be able to create an order. 
+Example: 
+ 
+ 
+ 
+ 
+ 
+ 
+After reservation: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Two users must not be able to reserve more stock than actually exists. 
+Example: 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Both requests  must not succeed. 
+ 
+Solve this correctly at backend/database level. 
+ 
+ 
+ 
+Technical Requirements 
+Your application must have: 
+ 
+ΓÇó Frontend connected  with backend  APIs 
+ΓÇó Relational  database 
+ΓÇó Proper data relationships 
+ΓÇó Backend validation 
+ΓÇó Error handling 
+ΓÇó Authentication 
+ΓÇó Role-based authorization 
+ΓÇó Database transactions where required 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ΓåÆ
+ΓåÆ  
+5  
+ΓÇó Environment -based configuration 
+ 
+The business logic should not depend heavily on one hosting provider or environment. 
+ 
+ 
+ 
+Minimum Screens 
+Build only these screens: 
+ 
+1. Login 
+2. Inventory 
+3. Work Orders 
+4. Internal Transfers 
+5. Customer  Orders 
+ 
+Focus on functionality instead of excessive UI design. 
+ 
+ 
+ 
+Mandatory Tests 
+At minimum implement these tests: 
+ 
+Test 1 
+Cannot reserve more than available inventory. 
+ 
+Test 2 
+Cannot transfer more than available inventory. 
+ 
+Test 3 
+Destination stock increases only after transfer receipt. 
+ 
+Test 4 
+Same transfer  cannot be received  twice. 
+ 
+Test 5 
+Unauthorized user cannot perform restricted operation. 
+ 
+ 
+ 
+Submission Requirements 
+Submit: 
+6  
+1. Git Repository 
+Complete  source code. 
+ 
+2. README 
+Include: 
+ 
+ΓÇó Tech stack 
+ΓÇó Project setup 
+ΓÇó Database setup 
+ΓÇó Environment  variables 
+ΓÇó How to run 
+ΓÇó How to test 
+ 
+3. Database Schema / ER Diagram 
+4. API Documentation 
+Swagger, Postman or equivalent. 
+ 
+5. Short Demo Video 
+Maximum 5ΓÇô7 minutes. 
+Show: 
+Login ΓåÆ Inventory  ΓåÆ Work Order ΓåÆ Transfer ΓåÆ Order Reservation 
+ 
+ 
+Important Git Requirement 
+Do not submit the whole application as one final commit. 
+Your repository should show reasonable development history. 
+ 
+AI Usage 
+AI tools may be used. 
+ 
+However, you must understand everything submitted. 
+In the next round, you may be asked to:  
+ΓÇó Explain your database 
+ΓÇó Modify an API 
+ΓÇó Change a business rule 
+7  
+ 
+QUANTITY 
+ΓÇó Debug a failure 
+ΓÇó Add a new field 
+ΓÇó Fix a transaction  issue 
+ 
+If you cannot modify or explain your own application, the submission will not qualify. 
+ 
+ 
+ 
+Live Verification 
+Shortlisted candidates will receive one small unannounced change. 
+Example: 
+Change 1 
+Add . 
+ 
+Damaged stock should automatically reduce available stock. 
+OR 
+Change 2 
+Allow a transfer to be partially received. 
+OR 
+Change 3 
+Cancel an order and correctly  release  its reserved  inventory. 
+OR 
+Change 4 
+Restrict users to only their assigned location. 
+ 
+ 
+ 
+Evaluation 
+ 
+Parameter Marks 
+Backend  & APIs 20 
+Database Design 15 
+Business Logic 20 
+Inventory / Transaction Correctness 15 
+8  
+Parameter Marks 
+Frontend Integration 10 
+Authentication & Authorization 8 
+Testing 5 
+Code Quality 5 
+Documentation 2 
+Total 100 
+ 
+ 
