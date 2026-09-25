@@ -1,3 +1,6 @@
+
+#video explaination :: "C:\Users\hp\Downloads\Untitled design.mp4"
+
 # FundsRoom — Mini Operations ERP
 
 A production-oriented full-stack Operations ERP built with **Node.js + React + PostgreSQL** and **Tailwind CSS**.
