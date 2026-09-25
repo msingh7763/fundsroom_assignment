@@ -4,14 +4,14 @@ A production-oriented full-stack Operations ERP built with **Node.js + React + P
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | React 18 + Vite + Tailwind CSS v3 |
-| Backend | Node.js + Express.js |
-| Database | PostgreSQL + Sequelize ORM |
-| Auth | JWT (JSON Web Tokens) |
-| Icons | Lucide React |
-| Notifications | React Hot Toast |
+| Layer         | Technology                        |
+| ------------- | --------------------------------- |
+| Frontend      | React 18 + Vite + Tailwind CSS v3 |
+| Backend       | Node.js + Express.js              |
+| Database      | PostgreSQL + Sequelize ORM        |
+| Auth          | JWT (JSON Web Tokens)             |
+| Icons         | Lucide React                      |
+| Notifications | React Hot Toast                   |
 
 ## Modules
 
@@ -51,6 +51,7 @@ createdb fundsroom
 ```
 
 Or connect to your PostgreSQL instance and run:
+
 ```sql
 CREATE DATABASE fundsroom;
 ```
@@ -77,6 +78,7 @@ JWT_EXPIRE=7d
 ```
 
 **For Frontend**, create `frontend/.env`:
+
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
@@ -89,26 +91,29 @@ npm run seed
 ```
 
 This will:
+
 - Create all necessary tables in PostgreSQL
 - Populate with default users, locations, and items
 
 **Default Users:**
 
-| Email | Password | Role |
-|-------|----------|------|
-| admin@fundsroom.com | Admin@123 | Admin |
-| ops@fundsroom.com | Ops@123 | Operations |
-| sales@fundsroom.com | Sales@123 | Sales |
+| Email               | Password  | Role       |
+| ------------------- | --------- | ---------- |
+| admin@fundsroom.com | Admin@123 | Admin      |
+| ops@fundsroom.com   | Ops@123   | Operations |
+| sales@fundsroom.com | Sales@123 | Sales      |
 
 ### 5. Run the Application
 
 **Terminal 1 — Backend**
+
 ```bash
 cd backend
 npm run dev
 ```
 
 **Terminal 2 — Frontend**
+
 ```bash
 cd frontend
 npm run dev
@@ -126,75 +131,76 @@ npm test
 
 **Test Coverage (5 core test cases):**
 
-| Test | Scenario |
-|------|----------|
-| Test 1 | Cannot reserve more than available inventory |
-| Test 2 | Cannot transfer more than available inventory |
+| Test   | Scenario                                                |
+| ------ | ------------------------------------------------------- |
+| Test 1 | Cannot reserve more than available inventory            |
+| Test 2 | Cannot transfer more than available inventory           |
 | Test 3 | Destination stock increases only after transfer receipt |
-| Test 4 | Same transfer cannot be received twice |
-| Test 5 | Unauthorized user cannot perform restricted operation |
+| Test 4 | Same transfer cannot be received twice                  |
+| Test 5 | Unauthorized user cannot perform restricted operation   |
 
 ## API Documentation
 
 ### Authentication
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/login` | Login and get JWT token |
-| GET | `/api/auth/me` | Get current user profile |
+| Method | Endpoint          | Description              |
+| ------ | ----------------- | ------------------------ |
+| POST   | `/api/auth/login` | Login and get JWT token  |
+| GET    | `/api/auth/me`    | Get current user profile |
 
 ### Inventory Management
 
-| Method | Endpoint | Role | Description |
-|--------|----------|------|-------------|
-| GET | `/api/inventory` | All | List all inventory records |
-| POST | `/api/inventory` | Admin, Ops | Create/upsert inventory |
-| GET | `/api/inventory/:id` | All | Get single record |
-| PATCH | `/api/inventory/:id/adjust` | Admin, Ops | Adjust physical quantity |
-| DELETE | `/api/inventory/:id` | Admin | Delete (soft delete) |
+| Method | Endpoint                    | Role       | Description                |
+| ------ | --------------------------- | ---------- | -------------------------- |
+| GET    | `/api/inventory`            | All        | List all inventory records |
+| POST   | `/api/inventory`            | Admin, Ops | Create/upsert inventory    |
+| GET    | `/api/inventory/:id`        | All        | Get single record          |
+| PATCH  | `/api/inventory/:id/adjust` | Admin, Ops | Adjust physical quantity   |
+| DELETE | `/api/inventory/:id`        | Admin      | Delete (soft delete)       |
 
 ### Work Orders
 
-| Method | Endpoint | Role | Description |
-|--------|----------|------|-------------|
-| GET | `/api/workorders` | All | List work orders |
-| POST | `/api/workorders` | Admin | Create new work order |
-| GET | `/api/workorders/:id` | All | Get single work order |
-| PATCH | `/api/workorders/:id/status` | Ops | Update status (Assigned → InProgress → Completed) |
+| Method | Endpoint                     | Role  | Description                                       |
+| ------ | ---------------------------- | ----- | ------------------------------------------------- |
+| GET    | `/api/workorders`            | All   | List work orders                                  |
+| POST   | `/api/workorders`            | Admin | Create new work order                             |
+| GET    | `/api/workorders/:id`        | All   | Get single work order                             |
+| PATCH  | `/api/workorders/:id/status` | Ops   | Update status (Assigned → InProgress → Completed) |
 
 ### Internal Transfers
 
-| Method | Endpoint | Role | Description |
-|--------|----------|------|-------------|
-| GET | `/api/transfers` | All | List all transfers |
-| POST | `/api/transfers` | Admin, Ops | Create transfer request |
-| GET | `/api/transfers/:id` | All | Get single transfer |
-| PATCH | `/api/transfers/:id/dispatch` | Admin, Ops | Dispatch (reduces source) |
-| PATCH | `/api/transfers/:id/receive` | Admin, Ops | Receive (increases destination) |
+| Method | Endpoint                      | Role       | Description                     |
+| ------ | ----------------------------- | ---------- | ------------------------------- |
+| GET    | `/api/transfers`              | All        | List all transfers              |
+| POST   | `/api/transfers`              | Admin, Ops | Create transfer request         |
+| GET    | `/api/transfers/:id`          | All        | Get single transfer             |
+| PATCH  | `/api/transfers/:id/dispatch` | Admin, Ops | Dispatch (reduces source)       |
+| PATCH  | `/api/transfers/:id/receive`  | Admin, Ops | Receive (increases destination) |
 
 ### Customer Orders
 
-| Method | Endpoint | Role | Description |
-|--------|----------|------|-------------|
-| GET | `/api/orders` | All | List customer orders |
-| POST | `/api/orders` | Admin, Sales | Create order |
-| GET | `/api/orders/:id` | All | Get single order |
-| PATCH | `/api/orders/:id/reserve` | All | Reserve stock (atomic) |
-| PATCH | `/api/orders/:id/fulfill` | Admin, Ops | Fulfill & dispatch |
-| PATCH | `/api/orders/:id/cancel` | Admin, Sales | Cancel & release stock |
+| Method | Endpoint                  | Role         | Description            |
+| ------ | ------------------------- | ------------ | ---------------------- |
+| GET    | `/api/orders`             | All          | List customer orders   |
+| POST   | `/api/orders`             | Admin, Sales | Create order           |
+| GET    | `/api/orders/:id`         | All          | Get single order       |
+| PATCH  | `/api/orders/:id/reserve` | All          | Reserve stock (atomic) |
+| PATCH  | `/api/orders/:id/fulfill` | Admin, Ops   | Fulfill & dispatch     |
+| PATCH  | `/api/orders/:id/cancel`  | Admin, Sales | Cancel & release stock |
 
 ### Items & Locations
 
-| Method | Endpoint | Role | Description |
-|--------|----------|------|-------------|
-| GET | `/api/items` | All | List active items |
-| POST | `/api/items` | Admin, Ops | Create item |
-| GET | `/api/locations` | All | List active locations |
-| POST | `/api/locations` | Admin | Create location |
+| Method | Endpoint         | Role       | Description           |
+| ------ | ---------------- | ---------- | --------------------- |
+| GET    | `/api/items`     | All        | List active items     |
+| POST   | `/api/items`     | Admin, Ops | Create item           |
+| GET    | `/api/locations` | All        | List active locations |
+| POST   | `/api/locations` | Admin      | Create location       |
 
 ## Database Schema
 
 **Tables:**
+
 - `Users` — Authentication, role-based access
 - `Locations` — Warehouse/store locations
 - `Items` — Products/components
@@ -204,6 +210,7 @@ npm test
 - `CustomerOrders` — Customer order reservations
 
 **Key Relationships:**
+
 ```
 Inventory
   ├─ itemId → Items.id
@@ -231,48 +238,55 @@ CustomerOrder
 ## Key Business Rules
 
 ### Inventory Constraints
+
 - `availableQty = physicalQty - reservedQty` (must always be ≥ 0)
 - Physical quantity cannot go negative
 - Reserved quantity cannot exceed physical quantity
 - Unique constraint on (itemId, locationId, batch)
 
 ### Transfer Flow
+
 1. **Requested** — Initial state, validates source availability
 2. **Dispatched** — Source inventory physically decreases
 3. **Received** — Destination inventory increases (idempotent-safe)
 4. **Cancelled** — Only from Requested state
 
 ### Order Reservation
+
 - Uses Sequelize transactions for atomicity
 - Prevents race conditions (two users can't over-reserve simultaneously)
 - Released stock on cancel if order is Reserved or Pending
 - Statuses: Pending → Reserved → Fulfilled OR Cancelled
 
 ### Work Order Shortage
+
 - Automatically calculates `shortageQty = max(0, requiredQty - availableQty)`
 - `availableQtyAtCreation` stored as reference for audit trail
 - Statuses: Assigned → InProgress → Completed
 
 ## Authorization Rules
 
-| Role | Permissions |
-|------|-------------|
-| **Admin** | Create/manage everything, approve transfers, create work orders, delete records |
+| Role           | Permissions                                                                            |
+| -------------- | -------------------------------------------------------------------------------------- |
+| **Admin**      | Create/manage everything, approve transfers, create work orders, delete records        |
 | **Operations** | Manage inventory, dispatch/receive transfers, fulfill orders, update work order status |
-| **Sales** | Create customer orders, reserve stock, cancel orders |
+| **Sales**      | Create customer orders, reserve stock, cancel orders                                   |
 
 ## Troubleshooting
 
 ### PostgreSQL Connection Error
+
 - Verify PostgreSQL is running: `pg_isready -h localhost -p 5432`
 - Check DB credentials in `.env` match PostgreSQL setup
 - Ensure database `fundsroom` exists
 
 ### Port Already in Use
+
 - Backend (5000): `lsof -i :5000` and kill the process, or change PORT in `.env`
 - Frontend (5173): `lsof -i :5173` and kill the process
 
 ### Database Reset
+
 ```bash
 dropdb fundsroom
 createdb fundsroom
@@ -280,6 +294,7 @@ npm run seed
 ```
 
 ### Test Failures
+
 - Ensure PostgreSQL is running
 - Check `.env` file is properly configured
 - Run `npm run seed` before tests
@@ -313,6 +328,7 @@ Each significant feature or component has its own commit, showing development pr
 ## API Examples
 
 ### Login
+
 ```bash
 curl -X POST http://localhost:5000/api/auth/login \
   -H "Content-Type: application/json" \
@@ -320,6 +336,7 @@ curl -X POST http://localhost:5000/api/auth/login \
 ```
 
 ### Create Order & Reserve Stock
+
 ```bash
 # Create order
 curl -X POST http://localhost:5000/api/orders \
@@ -339,6 +356,7 @@ curl -X PATCH http://localhost:5000/api/orders/ORDER_ID/reserve \
 ```
 
 ### Create & Execute Transfer
+
 ```bash
 # Create transfer request
 curl -X POST http://localhost:5000/api/transfers \
