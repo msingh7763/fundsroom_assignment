@@ -1,5 +1,5 @@
 
-#video explaination :: "C:\Users\hp\Downloads\Untitled design.mp4"
+#video explaination :: https://1drv.ms/v/c/edcc9de9e4ff9258/IQDIK-30_ckRQ5jc8LT5jSdsAVuhTVmnoN3zxNfSidRyLN0?e=PaiAzB
 
 # FundsRoom — Mini Operations ERP
 
