@@ -60,9 +60,12 @@ app.use((req, res) => {
 // Global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
+  const message = process.env.NODE_ENV === 'development'
+    ? err.message
+    : 'Internal Server Error';
   res.status(err.statusCode || 500).json({
     success: false,
-    message: err.message || 'Internal Server Error',
+    message,
   });
 });
 
