@@ -3,7 +3,7 @@ const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 
-const { connectDB } = require('./config/db');
+const { connectDB, sequelize } = require('./config/db');
 
 // Route imports
 const authRoutes = require('./routes/auth.routes');
@@ -32,6 +32,15 @@ app.use(express.urlencoded({ extended: false, limit: '1mb' }));
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
+app.get('/api/ready', async (req, res) => {
+  try {
+    await sequelize.authenticate();
+    res.json({ status: 'READY', timestamp: new Date().toISOString() });
+  } catch (error) {
+    res.status(503).json({ status: 'NOT_READY' });
+  }
 });
 
 // API Routes
